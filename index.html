@@ -4,13 +4,35 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/goit-js-hw-11/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vanilla App Template</title>
+    <title>HW11</title>
     
     <script type="module" crossorigin src="/goit-js-hw-11/commonHelpers.js"></script>
-    <link rel="stylesheet" href="/goit-js-hw-11/assets/index-10c40100.css">
+    <link rel="modulepreload" crossorigin href="/goit-js-hw-11/assets/vendor-5b791d57.js">
+    <link rel="stylesheet" href="/goit-js-hw-11/assets/vendor-cf6910df.css">
+    <link rel="stylesheet" href="/goit-js-hw-11/assets/index-66058f07.css">
   </head>
   <body>
-    <header class="header">
+ 
+    <!-- <template>
+      <div id="app">
+        <atom-spinner :animation-duration="1000" :size="60" color="#ff1d5e" />
+      </div>
+    </template> -->
+    <!-- <div class="orbit-spinner">
+      <div class="orbit"></div>
+      <div class="orbit"></div>
+      <div class="orbit"></div>
+    </div> -->
+
+    <div class="preloader">
+      <div class="preloader__row">
+        <p>load</p>
+        <div class="preloader__item"></div>
+        <div class="preloader__item"></div>
+      </div>
+    </div>
+
+       <!-- <header class="header">
   <nav class="nav">
     <ul class="nav-list">
       <li class="nav-item">
@@ -23,13 +45,23 @@
     </ul>
   </nav>
 </header>
-
-
+ -->
     <section>
-      <h1>Example page title</h1>
       <!-- Path to images as from index.html file -->
-      <img src="/goit-js-hw-11/assets/javascript-8dac5379.svg" alt="" />
+      <!-- <img src="./img/javascript.svg" alt="" /> -->
     </section>
+
+
+<form autocomplete="off">
+<input type="text" placeholder="Search images...">
+<button type="submit" id="search">Search</button>
+</form>
+
+<ul class="gallery">
+  
+</ul>
+
+
 
     <!-- Loads the specified .html file -->
     <section class="vite-promo">
@@ -79,7 +111,9 @@
   </div>
 </section>
 
-
     
+    
+    
+    <!-- <script type="module" src="./main.js"></script> -->
   </body>
 </html>
