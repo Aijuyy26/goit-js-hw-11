@@ -43,9 +43,11 @@ export function renderImages(data) {
       </li>`;
     })
     .join('');
+
   setTimeout(() => {
     galleryList.innerHTML = galleryMarkup;
     const lightbox = new SimpleLightbox('.gallery a');
     lightbox.on('show.simplelightbox', function () {});
-  }, 1000); 
+    loader.remove(); // Удаляем загрузчик после загрузки изображений
+  }, 1000);
 }
