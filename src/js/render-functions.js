@@ -6,16 +6,21 @@ import {
   galleryList
 } from "../main";
 export function renderImages(data) {
-  galleryList.innerHTML = '';
-  console.log(data);
   const images = data.hits;
-  if (images.length == 0) {
+  if (images.length === 0) {
     iziToast.error({
       title: 'Error',
       message: `Error: No such pictures!`,
       position: 'topRight',
     });
+    return;
   }
+
+  const loader = document.createElement('div');
+  loader.classList.add('loader');
+  galleryList.innerHTML = '';
+  galleryList.appendChild(loader);
+
   const galleryMarkup = images
     .map(image => {
       return `<li class="gallery-item">
@@ -29,25 +34,18 @@ export function renderImages(data) {
             alt="${image.tags}"
           />
           <ul class="gallery-description">
-          <li><h3>Likes</h3><p>${image.likes}</p>
-          </li>
-          <li><h3>Views</h3><p>${image.views}</p>
-            </li>
-            <li><h3>Comments</h3><p>${image.comments}</p>
-              </li>
-              <li><h3>Downloads</h3><p>${image.downloads}</p>
-                </li>
+            <li><h3>Likes</h3><p>${image.likes}</p></li>
+            <li><h3>Views</h3><p>${image.views}</p></li>
+            <li><h3>Comments</h3><p>${image.comments}</p></li>
+            <li><h3>Downloads</h3><p>${image.downloads}</p></li>
           </ul>
         </a>
       </li>`;
     })
     .join('');
-  galleryList.insertAdjacentHTML('beforeend', galleryMarkup);
-  // Initialize SimpleLightbox
-  const galleryCfg = {
-    captionsData: 'alt',
-  };
-  let lightbox = new SimpleLightbox('.gallery a', galleryCfg);
-  lightbox.on('show.simplelightbox', function () {});
-  lightbox.refresh();
+  setTimeout(() => {
+    galleryList.innerHTML = galleryMarkup;
+    const lightbox = new SimpleLightbox('.gallery a');
+    lightbox.on('show.simplelightbox', function () {});
+  }, 1000); 
 }
