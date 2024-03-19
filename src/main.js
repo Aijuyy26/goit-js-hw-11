@@ -4,21 +4,18 @@ import 'izitoast/dist/css/iziToast.min.css';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
+import { OrbitSpinner } from 'epic-spinners';
 import { renderImgs } from './js/render-functions';
 import { fetchImg } from './js/pixabay-api';
+
 export const setGallery = document.querySelector('ul.gallery');
-export let imgset;
-export let searchImgs;
-
-
+export let url;
 
 const inputfield = document.querySelector('input');
 const inputBtn = document.querySelector('button');
 const fillForm = document.querySelector('form');
-
+let wishImgs;
 const preloader = document.querySelector('.preloader');
-
-
 
 const showLoader = () => {
   preloader.style.display = 'flex';
@@ -31,44 +28,34 @@ const handleLoad = () => {
   document.body.classList.remove('loaded_hiding');
 };
 
-window.onload = handleLoad;
-// +++++++++++++++++++
-// Begin ++++++++++++++++
-inputBtn.addEventListener('click', async event => {
+inputBtn.addEventListener('click', async (event) => {
   event.preventDefault();
-
-  searchImgs = inputfield.value.trim().toLowerCase(); // Приведение к нижнему регистру
-
-  if (!searchImgs) {
+  wishImgs = inputfield.value.trim();
+  if (!wishImgs.length) {
     iziToast.error({
       color: 'yellow',
-      message: ` Please fill in the field for search query.`,
+      message: ` Please fill in the field for the search query.`,
       position: 'topRight',
     });
     setGallery.innerHTML = '';
-    return; // Добавление обработки пустого ввода
+    return;
   }
-
+  const searchParams = new URLSearchParams({
+    key: '22926721-5d20aa08498ffd1ff2f906542',
+    q: wishImgs,
+    image_type: 'photo',
+    orientation: 'horizontal',
+    safesearch: 'true',
+  });
+  url = `https://pixabay.com/api/?${searchParams}`;
   showLoader();
-  setGallery.innerHTML = ''; // Очистка галереи при новом запросе
   try {
-    const images = await fetchImg(searchImgs);
-
-    imgset = images.hits;
-
-    if (!imgset.length) {
-      iziToast.error({
-        color: 'red',
-        message: `❌ Sorry, there are no images matching your search query. Please try again!`,
-        position: 'topRight',
-      });
-    } else {
-      renderImgs(images);
-    }
+    const images = await fetchImg();
+    renderImgs(images);
   } catch (error) {
     iziToast.error({
       color: 'red',
-      message: `:x: ${error.message}`, // Более информативное сообщение об ошибке
+      message: `:x: Sorry, there was a mistake. Please try again!`,
       position: 'topRight',
     });
   } finally {
@@ -76,10 +63,4 @@ inputBtn.addEventListener('click', async event => {
     handleLoad();
   }
 });
-
-// Добавление обработчика нажатия клавиши Enter
-inputfield.addEventListener('keydown', event => {
-  if (event.key === 'Enter') {
-    inputBtn.click();
-  }
-});
+window.onload = handleLoad;
