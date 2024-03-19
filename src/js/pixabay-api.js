@@ -1,16 +1,22 @@
-import { galleryList } from '../main';
-import { query } from '../main';
+import {searchImgs } from '../main';
 
-export function fetchImages(query) {
-  
-  query = encodeURIComponent(query);
-  galleryList.innerHTML = `<div class="loader"></div>`;
-  return fetch(
-    `https://pixabay.com/api/?key=42609290-856768105ab9e79485c69bf61&q=${query}&image_type=photo&orientation=horizontal&safesearch=true`
-  ).then(response => {
+export function fetchImg() {
+  const searchParams = new URLSearchParams({
+    key: '22926721-5d20aa08498ffd1ff2f906542',
+    // key: '42609290-856768105ab9e79485c69bf61',
+    q: searchImgs,
+    image_type: 'photo',
+    orientation: 'horizontal',
+    safesearch: 'true',
+  });
+
+  const url = `https://pixabay.com/api/?${searchParams}`;
+
+  return fetch(url).then(response => {
     if (!response.ok) {
       throw new Error(response.status);
     }
+
     return response.json();
   });
 }

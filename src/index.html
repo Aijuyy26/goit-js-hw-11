@@ -1,31 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HW11</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+  </head>
+  <body>
+ 
+    <!-- <template>
+      <div id="app">
+        <atom-spinner :animation-duration="1000" :size="60" color="#ff1d5e" />
+      </div>
+    </template> -->
+    <!-- <div class="orbit-spinner">
+      <div class="orbit"></div>
+      <div class="orbit"></div>
+      <div class="orbit"></div>
+    </div> -->
 
-<head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Homework 11</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="./css/styles.css" />
-  <link href="
-      https://cdn.jsdelivr.net/npm/basiclightbox@5.0.4/dist/basicLightbox.min.css
-      " rel="stylesheet">
+    <div class="preloader">
+      <div class="preloader__row">
+        <p>load</p>
+        <div class="preloader__item"></div>
+        <div class="preloader__item"></div>
+      </div>
+    </div>
 
-</head>
-
-<body>
-
-  <div class="search-bar"> <input type="text" placeholder="Search images..." id="search-input" />
-    <button type="button" id="search-button">Search</button>
-  </div>
-  <ul class="gallery"></ul>
+       <!-- <load ="partials/header.html" /> -->
+    <section>
+      <!-- Path to images as from index.html file -->
+      <!-- <img src="./img/javascript.svg" alt="" /> -->
+    </section>
 
 
-  <script src="./main.js" type="module"></script>
-</body>
+<form autocomplete="off">
+<input type="text" placeholder="Search images...">
+<button type="submit" id="search">Search</button>
+</form>
 
+<ul class="gallery">
+  
+</ul>
+
+
+
+    <!-- Loads the specified .html file -->
+    <load ="partials/vite-promo.html" />
+    <script type="module" src="./main.js"></script>
+    <script type="module" src="./js/pixabay-api.js"></script>
+    <script type="module" src="./js/render-functions.js"></script>
+    <!-- <script type="module" src="./main.js"></script> -->
+  </body>
 </html>
