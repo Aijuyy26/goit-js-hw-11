@@ -4,33 +4,32 @@ import 'izitoast/dist/css/iziToast.min.css';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
-import { OrbitSpinner } from 'epic-spinners';
 import { renderImgs } from './js/render-functions';
 import { fetchImg } from './js/pixabay-api';
 
 export const setGallery = document.querySelector('ul.gallery');
-export let url;
 
-const inputfield = document.querySelector('input');
-const inputBtn = document.querySelector('button');
+const inputField = document.querySelector('input');
 const fillForm = document.querySelector('form');
-let wishImgs;
 const preloader = document.querySelector('.preloader');
 
 const showLoader = () => {
   preloader.style.display = 'flex';
 };
+
 const hideLoader = () => {
   preloader.style.display = 'none';
 };
+
 const handleLoad = () => {
   document.body.classList.add('loaded');
   document.body.classList.remove('loaded_hiding');
 };
 
-inputBtn.addEventListener('click', async (event) => {
+fillForm.addEventListener('submit', async event => {
   event.preventDefault();
-  wishImgs = inputfield.value.trim();
+  const wishImgs = inputField.value.trim();
+
   if (!wishImgs.length) {
     iziToast.error({
       color: 'yellow',
@@ -40,17 +39,10 @@ inputBtn.addEventListener('click', async (event) => {
     setGallery.innerHTML = '';
     return;
   }
-  const searchParams = new URLSearchParams({
-    key: '22926721-5d20aa08498ffd1ff2f906542',
-    q: wishImgs,
-    image_type: 'photo',
-    orientation: 'horizontal',
-    safesearch: 'true',
-  });
-  url = `https://pixabay.com/api/?${searchParams}`;
+
   showLoader();
   try {
-    const images = await fetchImg();
+    const images = await fetchImg(wishImgs);
     renderImgs(images);
   } catch (error) {
     iziToast.error({
@@ -63,4 +55,5 @@ inputBtn.addEventListener('click', async (event) => {
     handleLoad();
   }
 });
+
 window.onload = handleLoad;
