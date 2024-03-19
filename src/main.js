@@ -37,46 +37,49 @@ window.onload = handleLoad;
 inputBtn.addEventListener('click', async event => {
   event.preventDefault();
 
-  searchImgs = inputfield.value.trim();
+  searchImgs = inputfield.value.trim().toLowerCase(); // Приведение к нижнему регистру
 
-  // control correct fill input
-
-  if (!searchImgs.length) {
+  if (!searchImgs) {
     iziToast.error({
       color: 'yellow',
       message: ` Please fill in the field for search query.`,
       position: 'topRight',
     });
     setGallery.innerHTML = '';
+    return; // Добавление обработки пустого ввода
   }
 
-  
   showLoader();
+  setGallery.innerHTML = ''; // Очистка галереи при новом запросе
   try {
-
-    const images = await fetchImg();
+    const images = await fetchImg(searchImgs);
 
     imgset = images.hits;
 
     if (!imgset.length) {
       iziToast.error({
         color: 'red',
-  
         message: `❌ Sorry, there are no images matching your search query. Please try again!`,
         position: 'topRight',
       });
+    } else {
+      renderImgs(images);
     }
-
-
-    renderImgs(images);
   } catch (error) {
     iziToast.error({
       color: 'red',
-      message: `:x: Sorry, there was a mistake. Please try again!`,
+      message: `:x: ${error.message}`, // Более информативное сообщение об ошибке
       position: 'topRight',
     });
   } finally {
     hideLoader();
     handleLoad();
+  }
+});
+
+// Добавление обработчика нажатия клавиши Enter
+inputfield.addEventListener('keydown', event => {
+  if (event.key === 'Enter') {
+    inputBtn.click();
   }
 });
