@@ -73,13 +73,16 @@
   background: #6c8cff;
 }
 
-.gallery {
-  display: flex;
-  gap: 24px;
-  width: 1128px;
-  flex-wrap: wrap;
-  margin: auto;
-}
+
+  .gallery {
+    display: flex;
+    width: 1128px;
+    flex-wrap: wrap;
+    column-gap: 24px;
+    row-gap: 48px;
+    margin: 0 auto;
+  }
+
 
 .gallery-item {
   display: block;
